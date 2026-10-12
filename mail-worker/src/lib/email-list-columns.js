@@ -22,6 +22,7 @@ export const emailListColumns = getTableColumns(email);
 export const emailBriefColumns = {
 	emailId: email.emailId,
 	sendEmail: email.sendEmail,
+	replyTo: email.replyTo,
 	name: email.name,
 	subject: email.subject,
 	code: email.code,

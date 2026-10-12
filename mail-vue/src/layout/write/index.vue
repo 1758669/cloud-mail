@@ -99,6 +99,7 @@ import {Icon} from "@iconify/vue";
 import {useUserStore} from "@/store/user.js";
 import {emailSend} from "@/request/email.js";
 import {isEmail} from "@/utils/verify-utils.js";
+import {getReplyRecipients} from "@/utils/reply-to.js";
 import {useAccountStore} from "@/store/account.js";
 import {useEmailStore} from "@/store/email.js";
 import {fileToBase64, formatBytes} from "@/utils/file-utils.js";
@@ -465,7 +466,7 @@ function openReply(email) {
 
   email.subject = email.subject || ''
 
-  form.receiveEmail.push(email.sendEmail)
+  form.receiveEmail.push(...getReplyRecipients(email))
   form.subject = (
       email.subject.startsWith('Re:') ||
       email.subject.startsWith('Re：') ||

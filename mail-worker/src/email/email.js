@@ -1,4 +1,5 @@
 import PostalMime from 'postal-mime';
+import {normalizeReplyTo} from '../utils/reply-to';
 import emailService from '../service/email-service';
 import accountService from '../service/account-service';
 import settingService from '../service/setting-service';
@@ -110,6 +111,7 @@ export async function email(message, env, ctx) {
 			toEmail: message.to,
 			toName: toName,
 			sendEmail: email.from.address,
+			replyTo: JSON.stringify(normalizeReplyTo(email.replyTo)),
 			name: email.from.name || emailUtils.getName(email.from.address),
 			subject: email.subject,
 			code,

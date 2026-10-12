@@ -32,8 +32,14 @@ const dbInit = {
 		await this.v3_1DB(c);
 		await this.v3_2DB(c);
 		await this.v3_3DB(c);
+		await this.replyToDB(c);
 		await settingService.refresh(c);
 		return c.text('success');
+	},
+
+	async replyToDB(c) {
+		const column = await c.env.db.prepare("SELECT name FROM pragma_table_info('email') WHERE name = 'reply_to'").first();
+		if (!column) await c.env.db.prepare("ALTER TABLE email ADD COLUMN reply_to TEXT NOT NULL DEFAULT '[]'").run();
 	},
 
 	async v3_3DB(c) {
@@ -606,6 +612,7 @@ const dbInit = {
 			email_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 			send_email TEXT,
 			name TEXT,
+			reply_to TEXT NOT NULL DEFAULT '[]',
 			account_id INTEGER NOT NULL,
 			user_id INTEGER NOT NULL,
 			subject TEXT,
