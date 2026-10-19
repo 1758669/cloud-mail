@@ -49,7 +49,7 @@ const resendService = {
 			const subject = body.data.subject;
 			const websiteSender = from === 'Avelis Notifications <notify@avelishq.com>';
 			const websiteSubject = typeof subject === 'string' && (
-				/^Avelis website — (?:concept-feedback|technology-operations|collaboration|other)$/.test(subject) ||
+				/^Avelis website — (?:general-inquiry|concept-feedback|technology-operations|collaboration|other)$/.test(subject) ||
 				/^Avelis (?:daily digest|每日申请汇总) — \d{4}-\d{2}-\d{2}$/.test(subject)
 			);
 			if (websiteSender && websiteSubject) return;
